@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ wheel.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ wheel.name }}</h2>
+    <p>{{ wheel.description }}</p>
+
+    <div class="wheel-container">
+        <canvas id="wheel-canvas" width="500" height="500"></canvas>
+    </div>
+
+    <div class="controls">
+        <button id="spin-button" class="button">Spin the Wheel</button>
+        <div id="result"></div>
+        <div class="button-group">
+            <a href="{{ url_for('main.show_wheel', wheel_id=wheel.id) }}" class="button">Play Again</a>
+            <a href="{{ url_for('main.add_category', wheel_id=wheel.id) }}" class="button">Add Categories</a>
+        
+            <form action="{{ url_for('main.delete_wheel', wheel_id=wheel.id) }}" 
+            method="POST" 
+            style="display: inline;"
+            onsubmit="return confirm('Are you sure you want to delete this wheel? This action cannot be undone.');">
+            <button type="submit" class="button delete-button">Delete Wheel</button>
+            </form>
+
+
+        </div>
+    </div>
+
+    <script id="categories-data" type="application/json">
+        {{ categories|tojson|safe }}
+    </script>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='wheel.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,24 @@
+CREATE TABLE Categories (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   name TEXT NOT NULL UNIQUE,
+   color TEXT DEFAULT '#FFFFFF',
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Wheels (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   name TEXT NOT NULL UNIQUE,
+   description TEXT,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE WheelCategories (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   wheel_id INTEGER NOT NULL,
+   category_id INTEGER NOT NULL,
+   position INTEGER NOT NULL,
+   FOREIGN KEY (wheel_id) REFERENCES Wheels(id) ON DELETE CASCADE,
+   FOREIGN KEY (category_id) REFERENCES Categories(id) ON DELETE CASCADE,
+   UNIQUE(wheel_id, category_id),
+   UNIQUE(wheel_id, position)
+);

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h2>Available Wheels</h2>
+    <a href="{{ url_for('main.new_wheel') }}" class="button">Create New Wheel</a>
+    
+    <ul class="wheel-list">
+    {% for wheel in wheels %}
+        <li class="wheel-item">
+            <h3>{{ wheel.name }}</h3>
+            <p>{{ wheel.description }}</p>
+            <a href="{{ url_for('main.show_wheel', wheel_id=wheel.id) }}" class="button">Play</a>
+        </li>
+    {% else %}
+        <li>No wheels available. Create one!</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

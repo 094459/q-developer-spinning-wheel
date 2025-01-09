@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Add Category{% endblock %}
+
+{% block content %}
+    <h2>Add Category to {{ wheel.name }}</h2>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Category Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="color" id="color" name="color" value="#FFFFFF">
+        </div>
+        
+        <button type="submit" class="button">Add Category</button>
+    </form>
+
+    <h3>Current Categories</h3>
+    <ul class="category-list">
+    {% for category in categories %}
+        <li class="category-item" style="background-color: {{ category.color }}">
+            {{ category.name }}
+        </li>
+    {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('main.show_wheel', wheel_id=wheel.id) }}" class="button">Back to Wheel</a>
+{% endblock %}
